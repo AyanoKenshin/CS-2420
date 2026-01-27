@@ -51,31 +51,46 @@ def CountingSort(A):
 
 def main():
     A = CreateRandomList(10)
-    B = A[:]
+    B = []
+
+    for i in range(len(A)):
+        B.append(A[i])
+
     BubbleSort(A)
     B.sort()
-    if A != B:
-        print("BubbleSort failed")
+
+    if A == B:
+        print("BubbleSort works")
     else:
-        print("BubbleSort passed")
+        print("BubbleSort fails")
 
     A = CreateRandomList(10)
-    B = A[:]
+    B = []
+
+    for i in range(len(A)):
+        B.append(A[i])
+
     ShakerSort(A)
     B.sort()
-    if A != B:
-        print("ShakerSort failed")
+
+    if A == B:
+        print("ShakerSort works")
     else:
-        print("ShakerSort passed")
+        print("ShakerSort fails")
 
     A = CreateRandomList(10)
-    B = A[:]
+    B = []
+
+    for i in range(len(A)):
+        B.append(A[i])
+
     CountingSort(A)
     B.sort()
-    if A != B:
-        print("CountingSort failed")
+
+    if A == B:
+        print("CountingSort works")
     else:
-        print("CountingSort passed")
+        print("CountingSort fails")
 
 if __name__ == "__main__":
     main()
