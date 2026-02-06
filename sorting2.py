@@ -50,91 +50,90 @@ def CountingSort(A):
             i += 1
 
 def MergeSort(A):
-    temp = [0] * len(A)
-    _MergeSort(A, 0, len(A) - 1, temp)
-
-def _MergeSort(A, low, high, temp):
-    if low >= high:
+    if len(A) <= 1:
         return
 
-    mid = (low + high) // 2
-    _MergeSort(A, low, mid, temp)
-    _MergeSort(A, mid + 1, high, temp)
-    _Merge(A, low, mid, high, temp)
+    mid = len(A) // 2
+    L = A[:mid]
+    R = A[mid:]
 
-def _Merge(A, low, mid, high, temp):
-    i = low
-    j = mid + 1
-    k = low
+    MergeSort(L)
+    MergeSort(R)
 
-    while i <= mid and j <= high:
-        if A[i] <= A[j]:
-            temp[k] = A[i]
-            i += 1
+    for i in range(len(A)):
+        if not R or (L and L[0] <= R[0]):
+            A[i] = L.pop(0)
         else:
-            temp[k] = A[j]
-            j += 1
-        k += 1
-
-    while i <= mid:
-        temp[k] = A[i]
-        i += 1
-        k += 1
-
-    while j <= high:
-        temp[k] = A[j]
-        j += 1
-        k += 1
-
-    for x in range(low, high + 1):
-        A[x] = temp[x]
+            A[i] = R.pop(0)
 
 def QuickSort(A):
-    _QuickSort(A, 0, len(A) - 1)
-
-def _QuickSort(A, low, high):
-    if low >= high:
+    if len(A) <= 1:
         return
 
-    p = _Partition(A, low, high)
-    _QuickSort(A, low, p - 1)
-    _QuickSort(A, p + 1, high)
+    pivot = A[0]
+    L = []
+    E = []
+    G = []
 
-def _Partition(A, low, high):
-    pivot = A[low]
-    left = low + 1
-    right = high
+    for x in A:
+        if x < pivot:
+            L.append(x)
+        elif x > pivot:
+            G.append(x)
+        else:
+            E.append(x)
 
-    while True:
-        while left <= right and A[left] <= pivot:
-            left += 1
-        while left <= right and A[right] >= pivot:
-            right -= 1
-        if left > right:
-            break
-        A[left], A[right] = A[right], A[left]
+    QuickSort(L)
+    QuickSort(G)
 
-    A[low], A[right] = A[right], A[low]
-    return right
+    i = 0
+    for x in L:
+        A[i] = x
+        i += 1
+    for x in E:
+        A[i] = x
+        i += 1
+    for x in G:
+        A[i] = x
+        i += 1
 
 def ModifiedQuickSort(A):
-    _ModifiedQuickSort(A, 0, len(A) - 1)
-
-def _ModifiedQuickSort(A, low, high):
-    if low >= high:
+    if len(A) <= 1:
         return
 
-    mid = (low + high) // 2
-    A[low], A[mid] = A[mid], A[low]
+    mid = len(A) // 2
+    A[0], A[mid] = A[mid], A[0]
 
-    p = _Partition(A, low, high)
-    _ModifiedQuickSort(A, low, p - 1)
-    _ModifiedQuickSort(A, p + 1, high)
+    pivot = A[0]
+    L = []
+    E = []
+    G = []
+
+    for x in A:
+        if x < pivot:
+            L.append(x)
+        elif x > pivot:
+            G.append(x)
+        else:
+            E.append(x)
+
+    ModifiedQuickSort(L)
+    ModifiedQuickSort(G)
+
+    i = 0
+    for x in L:
+        A[i] = x
+        i += 1
+    for x in E:
+        A[i] = x
+        i += 1
+    for x in G:
+        A[i] = x
+        i += 1
 
 def main():
     A = CreateRandomList(10)
     B = []
-
     for i in range(len(A)):
         B.append(A[i])
 
@@ -148,7 +147,6 @@ def main():
 
     A = CreateRandomList(10)
     B = []
-
     for i in range(len(A)):
         B.append(A[i])
 
@@ -162,7 +160,6 @@ def main():
 
     A = CreateRandomList(10)
     B = []
-
     for i in range(len(A)):
         B.append(A[i])
 
@@ -176,7 +173,6 @@ def main():
 
     A = CreateRandomList(10)
     B = []
-
     for i in range(len(A)):
         B.append(A[i])
 
@@ -190,7 +186,6 @@ def main():
 
     A = CreateRandomList(10)
     B = []
-
     for i in range(len(A)):
         B.append(A[i])
 
@@ -204,7 +199,6 @@ def main():
 
     A = CreateRandomList(10)
     B = []
-
     for i in range(len(A)):
         B.append(A[i])
 
