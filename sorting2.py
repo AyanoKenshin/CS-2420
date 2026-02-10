@@ -67,69 +67,47 @@ def MergeSort(A):
             A[i] = R.pop(0)
 
 def QuickSort(A):
-    if len(A) <= 1:
+    QuickSortR(A, 0, len(A) - 1)
+
+def QuickSortR(A, low, high):
+    if low >= high:
         return
 
-    pivot = A[0]
-    L = []
-    E = []
-    G = []
+    boundary = low + 1
 
-    for x in A:
-        if x < pivot:
-            L.append(x)
-        elif x > pivot:
-            G.append(x)
-        else:
-            E.append(x)
+    for i in range(low + 1, high + 1):
+        if A[i] < A[low]:
+            A[i], A[boundary] = A[boundary], A[i]
+            boundary += 1
 
-    QuickSort(L)
-    QuickSort(G)
+    pivot = boundary - 1
+    A[low], A[pivot] = A[pivot], A[low]
 
-    i = 0
-    for x in L:
-        A[i] = x
-        i += 1
-    for x in E:
-        A[i] = x
-        i += 1
-    for x in G:
-        A[i] = x
-        i += 1
+    QuickSortR(A, low, pivot - 1)
+    QuickSortR(A, pivot + 1, high)
 
 def ModifiedQuickSort(A):
-    if len(A) <= 1:
+    ModifiedQuickSortR(A, 0, len(A) - 1)
+
+def ModifiedQuickSortR(A, low, high):
+    if low >= high:
         return
 
-    mid = len(A) // 2
-    A[0], A[mid] = A[mid], A[0]
+    mid = (low + high) // 2
+    A[low], A[mid] = A[mid], A[low]
 
-    pivot = A[0]
-    L = []
-    E = []
-    G = []
+    boundary = low + 1
 
-    for x in A:
-        if x < pivot:
-            L.append(x)
-        elif x > pivot:
-            G.append(x)
-        else:
-            E.append(x)
+    for i in range(low + 1, high + 1):
+        if A[i] < A[low]:
+            A[i], A[boundary] = A[boundary], A[i]
+            boundary += 1
 
-    ModifiedQuickSort(L)
-    ModifiedQuickSort(G)
+    pivot = boundary - 1
+    A[low], A[pivot] = A[pivot], A[low]
 
-    i = 0
-    for x in L:
-        A[i] = x
-        i += 1
-    for x in E:
-        A[i] = x
-        i += 1
-    for x in G:
-        A[i] = x
-        i += 1
+    ModifiedQuickSortR(A, low, pivot - 1)
+    ModifiedQuickSortR(A, pivot + 1, high)
 
 def main():
     A = CreateRandomList(10)
