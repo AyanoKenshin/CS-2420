@@ -12,7 +12,7 @@ def main():
     f = open("FakeNames.txt", "r")
     for line in f:
         parts = line.strip().split()
-        s = Student(parts[0], parts[1], parts[2], parts[3])
+        s = Student(parts[0], parts[1], parts[2], parts[3], parts[4])
         b.Insert(s)
     f.close()
 
@@ -34,7 +34,7 @@ def main():
     f = open("DeleteNames.txt", "r")
     for line in f:
         ssn = line.strip()
-        temp = Student("", "", 0, ssn)
+        temp = Student("", "", ssn, "", 0)
         b.Delete(temp)
     f.close()
 
@@ -47,7 +47,7 @@ def main():
     f = open("RetrieveNames.txt", "r")
     for line in f:
         ssn = line.strip()
-        temp = Student("", "", 0, ssn)
+        temp = Student("", "", ssn, "", 0)
         b.Retrieve(temp)
     f.close()
 
