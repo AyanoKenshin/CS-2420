@@ -1,38 +1,27 @@
 class Node:
-    def __init__(self, item):
+    
+    def __init__(self, item, left, right):
         self.item = item
-        self.L = None
-        self.R = None
+        self.L = left
+        self.R = right
 
 
 class Bag:
-
+    
     def __init__(self):
         self.root = None
 
-    def Insert(self, item):
-        if self.root is None:
-            self.root = Node(item)
-            return True
-        return self.InsertR(item, self.root)
-
-    def InsertR(self, item, c):
-        if item == c.item:
-            return False
-        elif item < c.item:
-            if c.L is None:
-                c.L = Node(item)
-                return True
-            return self.InsertR(item, c.L)
-        else:
-            if c.R is None:
-                c.R = Node(item)
-                return True
-            return self.InsertR(item, c.R)
+    def Size(self):
+        return self.SizeR(self.root)
+    
+    def SizeR(self, c):
+        if c is None:
+            return 0
+        return self.SizeR(c.L) + 1 + self.SizeR(c.R)
 
     def Exists(self, item):
         return self.ExistsR(item, self.root)
-
+    
     def ExistsR(self, item, c):
         if c is None:
             return False
@@ -42,6 +31,22 @@ class Bag:
             return self.ExistsR(item, c.L)
         else:
             return self.ExistsR(item, c.R)
+
+    def Insert(self, item):
+        if self.Exists(item):
+            return False
+        n = Node(item, None, None)
+        self.root = self.InsertR(n, self.root)
+        return True
+
+    def InsertR(self, n, c):
+        if c is None:
+            return n
+        elif n.item < c.item:
+            c.L = self.InsertR(n, c.L)
+        else:
+            c.R = self.InsertR(n, c.R)
+        return c
 
     def Retrieve(self, item):
         return self.RetrieveR(item, self.root)
@@ -56,14 +61,6 @@ class Bag:
         else:
             return self.RetrieveR(item, c.R)
 
-    def Size(self):
-        return self.SizeR(self.root)
-
-    def SizeR(self, c):
-        if c is None:
-            return 0
-        return self.SizeR(c.L) + 1 + self.SizeR(c.R)
-
     def Delete(self, item):
         if not self.Exists(item):
             return False
@@ -73,7 +70,7 @@ class Bag:
     def DeleteR(self, item, c):
         if item < c.item:
             c.L = self.DeleteR(item, c.L)
-        elif item > c.item:
+        elif c.item < item:
             c.R = self.DeleteR(item, c.R)
         else:
             if c.L is None and c.R is None:
@@ -83,11 +80,11 @@ class Bag:
             elif c.R is None:
                 return c.L
             else:
-                p = c.L
-                while p.R is not None:
-                    p = p.R
-                c.item = p.item
-                c.L = self.DeleteR(p.item, c.L)
+                pred = c.L
+                while pred.R is not None:
+                    pred = pred.R
+                c.item = pred.item
+                c.L = self.DeleteR(pred.item, c.L)
         return c
 
     def __iter__(self):

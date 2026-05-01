@@ -13,8 +13,5 @@ class Student:
     def __lt__(self, rhs):
         return self.ssn < rhs.ssn
 
-    def __gt__(self, rhs):
-        return self.ssn > rhs.ssn
-
     def __str__(self):
         return self.first + " " + self.last + " " + self.ssn + " " + self.email + " " + str(self.age)
