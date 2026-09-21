@@ -1,5 +1,6 @@
 import random
 import math
+import sys
 
 def MakeRandomData(size):
     A = []
@@ -102,22 +103,21 @@ def MergeSortR(A, work):
     for i in range(len(A)):
         if not R:
             A[i] = L.pop(0)
-            work[0] += 1              # copy into A
-            work[0] += (len(L))       # pop(0) shifts remaining items
+            work[0] += 1
+
         elif not L:
             A[i] = R.pop(0)
             work[0] += 1
-            work[0] += (len(R))
+
         else:
-            work[0] += 1              # compare L[0] <= R[0]
+            work[0] += 1
+
             if L[0] <= R[0]:
                 A[i] = L.pop(0)
-                work[0] += 1
-                work[0] += (len(L))
+                work[0] += 1  
             else:
                 A[i] = R.pop(0)
-                work[0] += 1
-                work[0] += (len(R))
+                work[0] += 1  
 
 
 def QuickSort(A):
@@ -212,6 +212,8 @@ def RunOneTable(title, data):
     print()
 
 def main():
+    sys.setrecursionlimit(10000)
+
     RunOneTable("Counting work when sorting random data:", MakeRandomData)
     RunOneTable("Counting work when sorting mostly sorted data:", MakeMostlySortedData)
 
